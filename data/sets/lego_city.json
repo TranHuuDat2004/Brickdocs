@@ -1,0 +1,23 @@
+{
+    "id": "lego_city",
+    "name": "Lego City",
+    "noteHtml": "Hướng dẫn lắp ráp chính hãng từ Lego.",
+    "files": [
+        {
+            "name": "60343 - Rescue Helicopter Transport",
+            "url": "documents/lego_city/60343.pdf",
+            "code": "60343",
+            "type": "pdf",
+            "date": "06/02/2026",
+            "size": "5.2 MB"
+        },
+        {
+            "name": "60312 - Police Car",
+            "url": "documents/lego_city/60312.pdf",
+            "code": "60312",
+            "type": "pdf",
+            "date": "06/02/2026",
+            "size": "2.1 MB"
+        }
+    ]
+}

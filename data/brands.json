@@ -1,0 +1,34 @@
+﻿[
+    {
+        "id": "lego_city",
+        "code": "CITY",
+        "name": "Lego City",
+        "category": "lego",
+        "image": "img/themes/lego_city.jpg",
+        "icon": "ph-buildings",
+        "description": "Xây dựng thành phố trong mơ với các bộ Lego City."
+    },
+    {
+        "id": "keeppley_sanrio",
+        "code": "SANRIO",
+        "name": "Keeppley Sanrio",
+        "category": "keeppley",
+        "image": "img/themes/sanrio.jpg",
+        "icon": "ph-heart",
+        "description": "Bộ sưu tập Sanrio dễ thương từ Keeppley."
+    },
+    {
+        "id": "qman_general",
+        "name": "Qman",
+        "category": "qman",
+        "icon": "ph-cube",
+        "description": "Các bộ lắp ráp sáng tạo từ Qman."
+    },
+    {
+        "id": "sluban_army",
+        "name": "Sluban Army",
+        "category": "sluban",
+        "icon": "ph-shield-check",
+        "description": "Mô hình quân sự và phương tiện chiến đấu."
+    }
+]

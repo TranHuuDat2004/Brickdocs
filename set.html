@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sách hướng dẫn - BrickDocs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Viewers Libs -->
+    <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
+    <script src="https://unpkg.com/docx-preview/dist/docx-preview.min.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pptxjs/1.21.1/css/pptxjs.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pptxjs/1.21.1/js/pptxjs.js"></script>
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-right: 1px solid #e2e8f0;
+        }
+
+        .nav-item.active {
+            background-color: #e0e7ff;
+            color: #4338ca;
+            font-weight: 600;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(156, 163, 175, 0.5);
+            border-radius: 3px;
+        }
+
+        /* Modal Animation */
+        .modal-enter {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        .modal-enter-active {
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 300ms, transform 300ms;
+        }
+
+        .modal-exit {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .modal-exit-active {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 200ms, transform 200ms;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 h-screen flex overflow-hidden">
+
+    <!-- PREVIEW MODAL (Hidden by default) -->
+    <div id="filePreviewModal" class="fixed inset-0 z-50 hidden">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" onclick="closeDocModal()">
+        </div>
+
+        <!-- Content -->
+        <div
+            class="absolute inset-4 md:inset-10 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden transform transition-all">
+            <!-- Modal Header -->
+            <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                <div class="flex items-center gap-3 overflow-hidden">
+                    <span class="bg-indigo-100 text-indigo-600 p-2 rounded-lg shrink-0">
+                        <i id="modalFileIcon" class="ph-fill ph-file text-lg"></i>
+                    </span>
+                    <h3 id="modalFileName" class="font-semibold text-slate-800 truncate">Filename.pdf</h3>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                    <a id="modalDownloadBtn" href="#"
+                        class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition"
+                        title="Tải xuống">
+                        <i class="ph-bold ph-download-simple text-xl"></i>
+                    </a>
+                    <button onclick="closeDocModal()"
+                        class="p-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition"
+                        title="Đóng">
+                        <i class="ph-bold ph-x text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Body (Viewer) -->
+            <div id="modalViewerContent" class="flex-1 overflow-auto bg-slate-100 relative p-4">
+                <!-- Content will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MOBILE OVERLAY BACKDROP -->
+    <div id="sidebarBackdrop" onclick="toggleSidebar()"
+        class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 hidden min-[1400px]:hidden transition-opacity"></div>
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar"
+        class="w-72 glass-panel h-full fixed min-[1400px]:static inset-y-0 left-0 z-50 flex flex-col transform -translate-x-full min-[1400px]:translate-x-0 transition-transform duration-300 shadow-xl min-[1400px]:shadow-lg bg-white">
+        <!-- Logo -->
+        <!-- Logo & Close Button -->
+        <div class="p-6 flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+                <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg">
+                    <i class="ph-bold ph-books text-xl"></i>
+                </div>
+                <span class="font-bold text-xl text-slate-800">BrickDocs</span>
+            </div>
+            <!-- Close Sidebar Button (Mobile) -->
+            <button onclick="toggleSidebar()"
+                class="min-[1400px]:hidden p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition">
+                <i class="ph-bold ph-x text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Danh sách môn (Load từ JSON) -->
+        <div id="sidebarScrollContainer" class="flex-1 overflow-y-auto px-4 py-2">
+            <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 pl-2">Chọn bộ lắp ráp</div>
+            <nav id="sidebarList" class="space-y-1">
+                <div class="text-center text-sm p-4"><i class="ph ph-spinner animate-spin"></i> Đang tải menu...</div>
+            </nav>
+        </div>
+
+        <div class="p-4 border-t border-slate-200">
+            <a href="index.html"
+                class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-indigo-600 transition rounded-xl">
+                <i class="ph ph-arrow-left text-lg"></i> Trang chủ
+            </a>
+        </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <div class="flex-1 flex flex-col h-full relative z-10 overflow-hidden">
+
+        <!-- Header -->
+        <header
+            class="h-16 border-b border-slate-200 bg-white flex items-center justify-between px-4 md:px-6 shrink-0 shadow-sm gap-3">
+
+            <div class="flex items-center gap-3 overflow-hidden">
+                <button onclick="toggleSidebar()"
+                    class="min-[1400px]:hidden p-2 -ml-2 text-slate-500 hover:bg-slate-100 rounded-lg">
+                    <i class="ph-bold ph-list text-2xl"></i>
+                </button>
+                <h1 class="text-lg font-bold text-slate-800 flex items-center gap-2 truncate" id="pageTitle">
+                    Loading...
+                </h1>
+            </div>
+            <button id="downloadAllBtn"
+                class="hidden bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition items-center gap-2">
+                <i class="ph-bold ph-download-simple"></i> Tải trọn bộ (.zip)
+            </button>
+        </header>
+
+        <main class="flex-1 flex overflow-hidden">
+            <!-- File List (Left) -->
+            <div class="w-full md:w-1/3 max-w-md border-r border-slate-200 bg-white flex flex-col">
+                <div
+                    class="p-3 border-b border-slate-50 bg-slate-50/50 flex justify-between text-xs font-semibold text-slate-500 uppercase">
+                    <span>Tên file</span>
+                    <span>Ngày</span>
+                </div>
+                <div class="flex-1 overflow-y-auto p-3 space-y-1" id="fileList">
+                    <!-- Files will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Preview (Right) -->
+            <div class="flex-1 bg-slate-100 relative flex flex-col">
+                <div class="hidden md:block">
+                    <div id="emptyState"
+                        class="absolute inset-0 flex flex-col items-center justify-center text-slate-400">
+                        <i class="ph ph-files text-5xl mb-4 text-slate-300"></i>
+                        <p>Chọn tài liệu để xem</p>
+                    </div>
+                </div>
+
+                <div id="viewerContainer"
+                    class="hidden fixed inset-0 z-[60] md:static md:inset-auto flex-1 flex flex-col h-full bg-white md:bg-slate-200">
+                    <!-- Toolbar -->
+                    <div
+                        class="h-16 md:h-12 bg-white border-b flex items-center justify-between px-4 shrink-0 shadow-sm md:shadow-none">
+                        <button onclick="closePreview()"
+                            class="md:hidden p-2 -ml-2 mr-2 text-slate-500 hover:bg-slate-100 rounded-lg">
+                            <i class="ph-bold ph-arrow-left text-xl"></i>
+                        </button>
+                        <span id="previewName" class="font-medium text-sm truncate max-w-xs">Filename</span>
+                        <div class="flex gap-2">
+                            <a id="downloadBtn" href="#" class="p-2 hover:bg-slate-100 rounded"><i
+                                    class="ph ph-download-simple"></i></a>
+                            <button onclick="closePreview()" class="p-2 hover:bg-red-50 text-red-500 rounded"><i
+                                    class="ph ph-x"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Viewers -->
+                    <div class="flex-1 relative overflow-hidden">
+                        <div id="pdfFrame" class="w-full h-full hidden bg-white overflow-y-auto relative"></div>
+                        <div id="docxFrame" class="w-full h-full hidden bg-white overflow-auto p-8"></div>
+                        <div id="excelFrame" class="w-full h-full hidden bg-white overflow-auto p-4"></div>
+                        <div id="pptFrame" class="w-full h-full hidden bg-white"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- CONFIRMATION MODAL -->
+    <div id="confirmModal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity" onclick="closeConfirmModal()">
+        </div>
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-white rounded-2xl shadow-xl p-6 transition-all transform scale-100">
+            <div class="text-center">
+                <div
+                    class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="ph-bold ph-warning text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-800 mb-2">Xác nhận tải xuống</h3>
+                <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+                    Hệ thống chuẩn bị tải xuống trọn bộ hướng dẫn <br> <span id="confirmSubjectName"
+                        class="font-bold text-indigo-600"></span>.
+                    <br><br>
+                    <span class="block bg-orange-50 text-orange-800 p-3 rounded-lg border border-orange-100 text-left">
+                        <i class="ph-bold ph-info mr-1"></i> <strong>Lưu ý:</strong> Dung lượng file có thể lớn. Vui
+                        lòng ưu tiên sử dụng <b>Wi-Fi</b> để tránh gián đoạn hoặc phát sinh cước phí dữ liệu di động
+                        (3G/4G).
+                    </span>
+                </p>
+
+                <div class="flex items-center justify-center gap-2 mb-6">
+                    <input type="checkbox" id="dontShowAgain"
+                        class="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+                    <label for="dontShowAgain" class="text-sm text-slate-600 select-none">Không nhắc lại thông báo
+                        này</label>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="closeConfirmModal()"
+                        class="flex-1 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-xl transition">
+                        Hủy
+                    </button>
+                    <button id="confirmBtn"
+                        class="flex-1 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition shadow-lg shadow-indigo-200">
+                        Tải xuống
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 1. Lấy ID từ URL (Ví dụ: subject.html?id=web -> lấy được 'web')
+            const params = new URLSearchParams(window.location.search);
+            const subjectId = params.get('id');
+
+            // 2. Load Sidebar (Chỉ tải danh sách tên môn - Rất nhẹ)
+            await loadSidebar(subjectId);
+
+            // 3. Load File chi tiết (Chỉ tải đúng file json của môn này)
+            if (subjectId) {
+                loadSubjectDetails(subjectId);
+            } else {
+                document.getElementById('pageTitle').innerText = "Vui lòng chọn bộ lắp ráp";
+                document.getElementById('fileList').innerHTML = '<div class="p-4 text-center text-slate-400">Chọn bộ lắp ráp bên trái</div>';
+            }
+        });
+
+        // --- MOBILE LAYOUT LOGIC ---
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            const isClosed = sidebar.classList.contains('-translate-x-full');
+
+            if (isClosed) {
+                sidebar.classList.remove('-translate-x-full');
+                backdrop.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                backdrop.classList.add('hidden');
+            }
+        }
+
+        // --- LOAD SIDEBAR ---
+        async function loadSidebar(activeId) {
+            try {
+                // Tải file brands.json nhẹ hều
+                const res = await fetch('data/brands.json');
+                const subjects = await res.json();
+
+                const container = document.getElementById('sidebarList');
+                container.innerHTML = '';
+
+                subjects.forEach(sub => {
+                    const isActive = sub.id === activeId;
+                    // Chú ý: href trỏ về chính file này nhưng đổi tham số ?id=...
+                    const link = document.createElement('a');
+                    link.href = `set.html?id=${sub.id}`;
+                    link.className = `flex items-center gap-3 px-4 py-3 rounded-xl transition mb-1 ${isActive ? 'bg-indigo-50 text-indigo-700 font-semibold' : 'text-slate-500 hover:bg-slate-50'}`;
+                    // Close sidebar on mobile when clicked
+                    link.onclick = (e) => {
+                        if (window.innerWidth < 768) {
+                            toggleSidebar();
+                        }
+                    };
+                    link.innerHTML = `
+                        <i class="${sub.icon || 'ph-folder'} text-lg"></i>
+                        <span class="truncate">${sub.name}</span>
+                    `;
+                    container.appendChild(link);
+                });
+
+                // Restore scroll position
+                const savedScroll = sessionStorage.getItem('sidebarScrollPos');
+                if (savedScroll) {
+                    document.getElementById('sidebarScrollContainer').scrollTop = parseInt(savedScroll);
+                }
+
+                // Add scroll listener
+                document.getElementById('sidebarScrollContainer').addEventListener('scroll', (e) => {
+                    sessionStorage.setItem('sidebarScrollPos', e.target.scrollTop);
+                });
+
+            } catch (e) {
+                console.error("Lỗi tải sidebar:", e);
+            }
+        }
+
+        // --- LOAD CHI TIẾT MÔN HỌC ---
+        async function loadSubjectDetails(id) {
+            const list = document.getElementById('fileList');
+            list.innerHTML = '<div class="p-4 text-center"><i class="ph ph-spinner animate-spin"></i> Đang tải dữ liệu...</div>';
+
+            try {
+                // QUAN TRỌNG: Chỉ fetch file json của set đó
+                const res = await fetch(`data/sets/${id}.json`);
+
+                if (!res.ok) throw new Error("Không tìm thấy bộ lắp ráp");
+
+                const data = await res.json();
+
+                // Cập nhật giao diện
+                document.title = `${data.name} - BrickDocs`;
+                document.title = `${data.name} - BrickDocs`;
+                document.getElementById('pageTitle').innerHTML = `<i class="ph-fill ph-folder-open text-indigo-600"></i> ${data.name}`;
+
+                // --- SETUP DOWNLOAD ALL BUTTON ---
+                const dlBtn = document.getElementById('downloadAllBtn');
+                if (data.files && data.files.length > 0) {
+                    dlBtn.classList.remove('hidden');
+                    dlBtn.classList.add('flex');
+                    dlBtn.onclick = () => handleDownloadClick(data);
+                } else {
+                    dlBtn.classList.add('hidden');
+                    dlBtn.classList.remove('flex');
+                }
+
+                // Render Files
+                list.innerHTML = '';
+
+                // --- NOTIFICATION FOR INTERNSHIP SUBJECTS ---
+                const internshipIds = ['internship', 'tsnn', 'ktcn'];
+                if (internshipIds.includes(id)) {
+                    const alert = document.createElement('div');
+                    alert.className = "mb-4 p-4 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800 flex gap-3";
+                    alert.innerHTML = `
+                         <i class="ph-fill ph-warning-circle text-lg shrink-0 mt-0.5"></i>
+                         <div>
+                             <strong>Lưu ý:</strong> Đây là biểu mẫu áp dụng cho <br><strong>HK2/2025-2026</strong>. <br/>
+                             Các học kỳ khác vui lòng chỉ tham khảo, biểu mẫu có thể thay đổi tùy theo quy định của Khoa tại từng thời điểm.
+                         </div>
+                     `;
+                    list.appendChild(alert);
+                }
+
+                // --- GENERIC NOTE/LINK NOTIFICATION ---
+                if (data.noteHtml) {
+                    const note = document.createElement('div');
+                    note.className = "mb-4 p-4 bg-indigo-50 border border-indigo-200 rounded-lg text-sm text-indigo-800 flex gap-3";
+                    note.innerHTML = `
+                         <i class="ph-fill ph-info text-lg shrink-0 mt-0.5"></i>
+                         <div>${data.noteHtml}</div>
+                     `;
+                    list.appendChild(note);
+                }
+
+                if (data.files.length === 0) {
+                    list.innerHTML = '<div class="p-4 text-center text-slate-400">Chưa có tài liệu.</div>';
+                    return;
+                }
+
+                // --- GLOBAL STORAGE FOR ONCLICK HANDLERS ---
+                window.currentSubjectFiles = data.files;
+
+                data.files.forEach((file, index) => {
+                    const icon = getIcon(file.type);
+                    const el = document.createElement('div');
+                    const sizeId = 'size-' + index;
+
+                    el.className = "group flex items-center justify-between p-3 rounded-xl border border-slate-100 bg-white hover:border-indigo-200 hover:shadow-sm transition cursor-pointer";
+                    // Add click handler to the main container
+                    el.onclick = (e) => previewFile(window.currentSubjectFiles[index]);
+
+                    el.innerHTML = `
+                        <div class="flex items-center gap-3 overflow-hidden">
+                            <div class="w-10 h-10 rounded-lg ${icon.bg} ${icon.text} flex items-center justify-center shrink-0">
+                                <i class="${icon.class} text-xl"></i>
+                            </div>
+                            <div class="flex flex-col min-w-0">
+                                <span class="font-medium text-slate-700 truncate text-sm">${file.name}</span>
+                                <span class="text-xs text-slate-400"><span id="${sizeId}">${file.size || 'Checking...'}</span> - ${file.date || ''}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                             <!-- Preview Button (Popup) - Visible on small screens -->
+                             <button onclick="event.stopPropagation(); openDocModal(window.currentSubjectFiles[${index}])" class="min-[1300px]:hidden p-2 text-slate-400 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg transition" title="Xem trước">
+                                <i class="ph-bold ph-eye text-lg"></i>
+                            </button>
+                             <a href="${file.url}" download onclick="event.stopPropagation()" class="p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-600 rounded-lg transition" title="Tải xuống">
+                                <i class="ph-bold ph-download-simple text-lg"></i>
+                            </a>
+                        </div>
+                    `;
+                    list.appendChild(el);
+
+                    // --- TỰ ĐỘNG LẤY SIZE ---
+                    if (file.size) {
+                        const sizeEl = document.getElementById(sizeId);
+                        if (sizeEl) sizeEl.innerText = file.size;
+                    } else {
+                        // Only fetch if no size provided
+                        setTimeout(() => {
+                            fetch(file.url, { method: 'HEAD' })
+                                .then(response => {
+                                    const sizeEl = document.getElementById(sizeId);
+                                    if (!sizeEl) return;
+
+                                    if (response.ok) {
+                                        const bytes = response.headers.get('content-length');
+                                        sizeEl.innerText = bytes ? formatBytes(bytes) : 'Unknown';
+                                    } else {
+                                        sizeEl.innerText = 'Error';
+                                    }
+                                })
+                                .catch(() => {
+                                    const sizeEl = document.getElementById(sizeId);
+                                    if (sizeEl) sizeEl.innerText = 'Error';
+                                });
+                        }, 0);
+                    }
+                });
+
+            } catch (e) {
+                list.innerHTML = `<div class="p-4 text-center text-red-400">Lỗi: Không tìm thấy dữ liệu cho set "${id}"</div>`;
+            }
+        }
+
+        // --- PREVIEW LOGIC (Refactored) ---
+        async function previewFile(file) {
+            // Desktop/Large Screen Preview
+            if (window.innerWidth >= 1300) {
+                const container = document.getElementById('viewerContainer');
+                const empty = document.getElementById('emptyState');
+
+                empty.classList.add('hidden');
+                container.classList.remove('hidden');
+
+                document.getElementById('previewName').innerText = file.name;
+                document.getElementById('downloadBtn').href = file.url;
+
+                // Clear and Render
+                ['pdfFrame', 'docxFrame', 'excelFrame', 'pptFrame'].forEach(id => {
+                    const el = document.getElementById(id);
+                    el.style.display = 'none';
+                    el.innerHTML = '';
+                    if (id === 'pdfFrame') el.src = '';
+                });
+
+                await renderFileContent(file, {
+                    pdf: document.getElementById('pdfFrame'),
+                    docx: document.getElementById('docxFrame'),
+                    excel: document.getElementById('excelFrame'),
+                    ppt: document.getElementById('pptFrame')
+                });
+            } else {
+                // Open Modal for < 1300px
+                openDocModal(file);
+            }
+        }
+
+        async function openDocModal(file) {
+            const modal = document.getElementById('filePreviewModal');
+            const content = document.getElementById('modalViewerContent');
+
+            document.getElementById('modalFileName').innerText = file.name;
+            document.getElementById('modalDownloadBtn').href = file.url;
+            document.getElementById('modalFileIcon').className = `ph-fill ${getIcon(file.type)} text-lg`;
+
+            content.innerHTML = ''; // Clear previous content
+
+            modal.classList.remove('hidden');
+
+            // Create temporary containers for the generic renderer
+            const tempContainer = document.createElement('div');
+            tempContainer.className = 'w-full h-full bg-white rounded-xl shadow-sm overflow-hidden';
+            content.appendChild(tempContainer);
+
+            // Reuse generic renderer for consistent behavior (including PDF.js fix)
+            await renderFileContent(file, {
+                pdf: tempContainer,
+                docx: tempContainer,
+                excel: tempContainer,
+                ppt: tempContainer
+            });
+        }
+
+        function closeDocModal() {
+            document.getElementById('filePreviewModal').classList.add('hidden');
+            document.getElementById('modalViewerContent').innerHTML = ''; // Cleanup
+        }
+
+        // Helper to keep main logic clean (renamed original logic for desktop context)
+        async function renderFileContent(file, elements) {
+            const loading = `<div class="flex h-full items-center justify-center text-slate-400 gap-2"><i class="ph ph-spinner animate-spin"></i> Đang tải...</div>`;
+
+            if (file.type === 'pdf') {
+                elements.pdf.style.display = 'block';
+                elements.pdf.innerHTML = loading;
+
+                try {
+                    const loadingTask = pdfjsLib.getDocument(file.url);
+                    const pdf = await loadingTask.promise;
+
+                    elements.pdf.innerHTML = '';
+                    elements.pdf.className = 'w-full h-full overflow-y-auto bg-slate-100 flex flex-col items-center gap-4 p-4';
+                    // Enable momentum scrolling for iOS
+                    elements.pdf.style.webkitOverflowScrolling = 'touch';
+
+                    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                        const page = await pdf.getPage(pageNum);
+
+                        // Scale based on container width
+                        const viewport = page.getViewport({ scale: 1.5 });
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+                        canvas.className = 'shadow-lg bg-white rounded-lg max-w-full';
+
+                        const renderContext = {
+                            canvasContext: context,
+                            viewport: viewport
+                        };
+
+                        await page.render(renderContext).promise;
+                        elements.pdf.appendChild(canvas);
+                    }
+                } catch (error) {
+                    console.error('PDF Render Error:', error);
+                    elements.pdf.innerHTML = `
+                        <div class="flex flex-col items-center justify-center h-full text-slate-500">
+                            <i class="ph-duotone ph-warning-circle text-4xl mb-2"></i>
+                            <p>Không thể xem trước file này.</p>
+                            <a href="${file.url}" class="text-indigo-600 hover:underline mt-2">Tải xuống để xem</a>
+                        </div>
+                    `;
+                }
+            }
+            else if (file.type === 'word' || file.type === 'docx') {
+                elements.docx.style.display = 'block';
+                elements.docx.innerHTML = loading;
+
+                // Fix for iOS scrolling
+                elements.docx.style.webkitOverflowScrolling = 'touch';
+                elements.docx.classList.add('overflow-y-auto');
+
+                try {
+                    const blob = await (await fetch(file.url)).blob();
+                    elements.docx.innerHTML = '';
+                    await docx.renderAsync(blob, elements.docx, null, { inWrapper: false });
+                } catch (e) { elements.docx.innerHTML = 'Lỗi tải Word'; }
+            }
+            else if (file.type === 'excel') {
+                elements.excel.style.display = 'block';
+                elements.excel.innerHTML = loading;
+
+                // Fix for iOS scrolling
+                elements.excel.style.webkitOverflowScrolling = 'touch';
+                elements.excel.classList.add('overflow-y-auto');
+
+                try {
+                    const ab = await (await fetch(file.url)).arrayBuffer();
+                    const wb = XLSX.read(ab);
+                    const html = XLSX.utils.sheet_to_html(wb.Sheets[wb.SheetNames[0]]);
+                    elements.excel.innerHTML = html;
+                    elements.excel.querySelector('table').style.borderCollapse = 'collapse';
+                } catch (e) { elements.excel.innerHTML = 'Lỗi tải Excel'; }
+            }
+            else if (file.type === 'ppt') {
+                elements.ppt.style.display = 'block';
+                elements.ppt.innerHTML = `
+                    <div class="p-3 text-center text-amber-700 bg-amber-50 border-b border-amber-100 text-sm">
+                        <i class="ph-bold ph-warning-circle"></i> Trình duyệt không hỗ trợ hiển thị trực tiếp file pptx, vui lòng tải xuống để xem nội dung chi tiết
+                    </div>
+                    <div id="pptx-target"></div>
+                `;
+                $("#pptx-target").pptxToHtml({
+                    pptxFileUrl: file.url,
+                    slidesScale: "100%",
+                    slideMode: false,
+                    keyBoardShortCut: false
+                });
+            }
+        }
+
+        function closePreview() {
+            document.getElementById('viewerContainer').classList.add('hidden');
+            document.getElementById('emptyState').classList.remove('hidden');
+            document.getElementById('pdfFrame').src = 'about:blank';
+        }
+
+        function handleDownloadClick(data) {
+            const dontShow = localStorage.getItem('hideDownloadConfirm');
+            if (dontShow === 'true') {
+                performDownload(data);
+            } else {
+                showConfirmModal(data);
+            }
+        }
+
+        function showConfirmModal(data) {
+            const modal = document.getElementById('confirmModal');
+            const nameSpan = document.getElementById('confirmSubjectName');
+            const confirmBtn = document.getElementById('confirmBtn');
+
+            nameSpan.innerText = data.name;
+            modal.classList.remove('hidden');
+
+            // Reset checkbox
+            document.getElementById('dontShowAgain').checked = false;
+
+            confirmBtn.onclick = () => {
+                const isChecked = document.getElementById('dontShowAgain').checked;
+                if (isChecked) {
+                    localStorage.setItem('hideDownloadConfirm', 'true');
+                }
+                closeConfirmModal();
+                performDownload(data);
+            };
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').classList.add('hidden');
+        }
+
+        async function performDownload(data) {
+            const btn = document.getElementById('downloadAllBtn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<i class="ph ph-spinner animate-spin"></i> Đang nén...`;
+            btn.disabled = true;
+
+            try {
+                const zip = new JSZip();
+                // Create a folder inside the zip with the subject name
+                const folder = zip.folder(data.name);
+
+                // Helper to fetch valid files
+                const fetchFile = async (file) => {
+                    try {
+                        const response = await fetch(file.url);
+                        if (!response.ok) throw new Error('Network error');
+                        const blob = await response.blob();
+                        folder.file(file.name, blob);
+                    } catch (e) {
+                        console.error(`Lỗi tải file ${file.name}:`, e);
+                        // Optional: Write an error log file in the zip
+                        folder.file(`ERROR_${file.name}.txt`, `Không thể tải file này: ${e.message}`);
+                    }
+                };
+
+                // Execute all fetches in parallel
+                await Promise.all(data.files.map(fetchFile));
+
+                // Generate ZIP
+                const content = await zip.generateAsync({ type: "blob" });
+
+                // Trigger Download
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(content);
+                a.download = `${data.name}.zip`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(a.href);
+
+            } catch (e) {
+                console.error("Zip Error:", e);
+                alert("Có lỗi xảy ra khi tạo file nén. Vui lòng thử lại.");
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        function getIcon(type) {
+            if (type === 'pdf') return { class: 'ph-fill ph-file-pdf', bg: 'bg-rose-100', text: 'text-rose-600' };
+            if (type === 'word') return { class: 'ph-fill ph-file-doc', bg: 'bg-blue-100', text: 'text-blue-600' };
+            if (type === 'excel') return { class: 'ph-fill ph-file-xls', bg: 'bg-emerald-100', text: 'text-emerald-600' };
+            if (type === 'ppt') return { class: 'ph-fill ph-file-ppt', bg: 'bg-orange-100', text: 'text-orange-600' };
+            return { class: 'ph-fill ph-file', bg: 'bg-slate-100', text: 'text-slate-600' };
+        }
+
+        function formatBytes(bytes, decimals = 2) {
+            if (!+bytes) return '0 Bytes';
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+        }
+    </script>
+</body>
+
+</html>
