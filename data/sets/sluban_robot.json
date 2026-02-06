@@ -1,0 +1,31 @@
+﻿{
+    "noteHtml":  "Chiến binh Robot dũng mãnh bảo vệ Trái đất.",
+    "files":  [
+                  {
+                      "name":  "B1151 - Sluban Robot",
+                      "code":  "B1151",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/sluban_robot/B1151.pdf",
+                      "size":  "2.31 MB"
+                  },
+                  {
+                      "name":  "B1152 - Sluban Robot",
+                      "code":  "B1152",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/sluban_robot/B1152.pdf",
+                      "size":  "2.3 MB"
+                  },
+                  {
+                      "name":  "B1153 - Sluban Robot",
+                      "code":  "B1153",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/sluban_robot/B1153.pdf",
+                      "size":  "2.1 MB"
+                  }
+              ],
+    "name":  "Sluban Robot",
+    "id":  "sluban_robot"
+}

@@ -16,7 +16,7 @@ A collection of building instruction manuals for various brick sets (Lego, Keepp
 | **Keeppley Conan** | 10 Sets | `conan.jpg` |
 | **Lego Ninjago Season 1** | 5 Sets | `ninjago_s1.jpg` |
 | **Lego Angry Birds** | 8 Sets | `angry_birds.jpg` |
-| **Lego Nexo Knights S5** | 9 Sets | `nexo_knight_s5.jpg` |
+| **Lego Nexo Knights S5** | 9 Sets | `lego_nexo_knight.jpg` |
 
 ## 🛠️ Key Features
 -   **Theme-Based Organization**: Sets are organized by theme and season.

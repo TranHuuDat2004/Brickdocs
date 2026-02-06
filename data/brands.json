@@ -1,14 +1,5 @@
 ﻿[
     {
-        "id": "lego_city",
-        "code": "CITY",
-        "name": "Lego City",
-        "category": "lego",
-        "image": "img/themes/lego_city.jpg",
-        "icon": "ph-buildings",
-        "description": "Xây dựng thành phố trong mơ với các bộ Lego City."
-    },
-    {
         "id": "lego_ninjago_s1",
         "code": "NINJAGO",
         "name": "Lego Ninjago S1",
@@ -34,6 +25,15 @@
         "image": "img/themes/lego_nexo_knight.jpg",
         "icon": "ph-shield-check",
         "description": "Hiệp sĩ công nghệ Nexo - Season 5."
+    },
+    {
+        "id": "qman_food",
+        "code": "FOOD",
+        "name": "Qman Food",
+        "category": "qman",
+        "image": "img/themes/qman_food.jpg",
+        "icon": "ph-hamburger",
+        "description": "Thế giới ẩm thực đường phố mini."
     },
     {
         "id": "keeppley_sanrio",
@@ -63,17 +63,12 @@
         "description": "Thám tử lừng danh Conan."
     },
     {
-        "id": "qman_general",
-        "name": "Qman",
-        "category": "qman",
-        "icon": "ph-cube",
-        "description": "Các bộ lắp ráp sáng tạo từ Qman."
-    },
-    {
-        "id": "sluban_army",
-        "name": "Sluban Army",
+        "id": "sluban_robot",
+        "code": "ROBOT",
+        "name": "Sluban Robot",
         "category": "sluban",
-        "icon": "ph-shield-check",
-        "description": "Mô hình quân sự và phương tiện chiến đấu."
+        "image": "img/themes/sluban_robot.jpg",
+        "icon": "ph-robot",
+        "description": "Chiến binh Robot dũng mãnh bảo vệ Trái đất."
     }
 ]
