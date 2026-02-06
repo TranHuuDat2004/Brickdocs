@@ -1,0 +1,71 @@
+﻿{
+    "noteHtml":  "Trận chiến giữa Angry Birds và lũ Heo xanh xấu tính.",
+    "files":  [
+                  {
+                      "name":  "75821",
+                      "code":  "75821",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_angry_birds/75821.pdf",
+                      "size":  "4.99 MB"
+                  },
+                  {
+                      "name":  "75822",
+                      "code":  "75822",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_angry_birds/75822.pdf",
+                      "size":  "10.56 MB"
+                  },
+                  {
+                      "name":  "75823-1",
+                      "code":  "75823-1",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_angry_birds/75823-1.pdf",
+                      "size":  "7.38 MB"
+                  },
+                  {
+                      "name":  "75823-2",
+                      "code":  "75823-2",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_angry_birds/75823-2.pdf",
+                      "size":  "5.15 MB"
+                  },
+                  {
+                      "name":  "75824-1",
+                      "code":  "75824-1",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_angry_birds/75824-1.pdf",
+                      "size":  "5.93 MB"
+                  },
+                  {
+                      "name":  "75824-2",
+                      "code":  "75824-2",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_angry_birds/75824-2.pdf",
+                      "size":  "5.01 MB"
+                  },
+                  {
+                      "name":  "75825",
+                      "code":  "75825",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_angry_birds/75825.pdf",
+                      "size":  "35.49 MB"
+                  },
+                  {
+                      "name":  "75826",
+                      "code":  "75826",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_angry_birds/75826.pdf",
+                      "size":  "33.05 MB"
+                  }
+              ],
+    "name":  "Lego Angry Birds",
+    "id":  "lego_angry_birds"
+}

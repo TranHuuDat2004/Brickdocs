@@ -1,0 +1,47 @@
+﻿{
+    "noteHtml":  "Trở lại khởi nguồn của Spinjitzu - Season 1: Rise of the Snakes.",
+    "files":  [
+                  {
+                      "name":  "9443",
+                      "code":  "9443",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_ninjago_s1/9443.pdf",
+                      "size":  "10.97 MB"
+                  },
+                  {
+                      "name":  "9445",
+                      "code":  "9445",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_ninjago_s1/9445.pdf",
+                      "size":  "11.07 MB"
+                  },
+                  {
+                      "name":  "9447",
+                      "code":  "9447",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_ninjago_s1/9447.pdf",
+                      "size":  "7.6 MB"
+                  },
+                  {
+                      "name":  "9455",
+                      "code":  "9455",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_ninjago_s1/9455.pdf",
+                      "size":  "5.4 MB"
+                  },
+                  {
+                      "name":  "9457",
+                      "code":  "9457",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_ninjago_s1/9457.pdf",
+                      "size":  "13.31 MB"
+                  }
+              ],
+    "name":  "Lego Ninjago Season 1",
+    "id":  "lego_ninjago_s1"
+}

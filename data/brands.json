@@ -9,6 +9,33 @@
         "description": "Xây dựng thành phố trong mơ với các bộ Lego City."
     },
     {
+        "id": "lego_ninjago_s1",
+        "code": "NINJAGO",
+        "name": "Lego Ninjago S1",
+        "category": "lego",
+        "image": "img/themes/ninjago_s1.jpg",
+        "icon": "ph-sword",
+        "description": "Huyền thoại Ninja bắt đầu - Season 1."
+    },
+    {
+        "id": "lego_angry_birds",
+        "code": "ANGRY BIRDS",
+        "name": "Lego Angry Birds",
+        "category": "lego",
+        "image": "img/themes/angry_birds.jpg",
+        "icon": "ph-bird",
+        "description": "Trận chiến giữa Angry Birds và lũ Heo xanh."
+    },
+    {
+        "id": "lego_nexo_knight_s5",
+        "code": "NEXO S5",
+        "name": "Lego Nexo Knights S5",
+        "category": "lego",
+        "image": "img/themes/lego_nexo_knight.jpg",
+        "icon": "ph-shield-check",
+        "description": "Hiệp sĩ công nghệ Nexo - Season 5."
+    },
+    {
         "id": "keeppley_sanrio",
         "code": "SANRIO",
         "name": "Keeppley Sanrio",
@@ -16,6 +43,24 @@
         "image": "img/themes/sanrio.jpg",
         "icon": "ph-heart",
         "description": "Bộ sưu tập Sanrio dễ thương từ Keeppley."
+    },
+    {
+        "id": "keeppley_doraemon",
+        "code": "DORAEMON",
+        "name": "Keeppley Doraemon",
+        "category": "keeppley",
+        "image": "img/themes/doraemon.jpg",
+        "icon": "ph-cat",
+        "description": "Thế giới bảo bối thần kỳ của Doraemon."
+    },
+    {
+        "id": "keeppley_conan",
+        "code": "CONAN",
+        "name": "Keeppley Conan",
+        "category": "keeppley",
+        "image": "img/themes/conan.jpg",
+        "icon": "ph-detective",
+        "description": "Thám tử lừng danh Conan."
     },
     {
         "id": "qman_general",

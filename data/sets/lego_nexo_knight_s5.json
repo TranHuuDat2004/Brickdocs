@@ -1,0 +1,79 @@
+﻿{
+    "noteHtml":  "Hiệp sĩ Nexo và trận chiến công nghệ cao - Season 5.",
+    "files":  [
+                  {
+                      "name":  "72001",
+                      "code":  "72001",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_nexo_knight_s5/72001.pdf",
+                      "size":  "7.87 MB"
+                  },
+                  {
+                      "name":  "72002",
+                      "code":  "72002",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_nexo_knight_s5/72002.pdf",
+                      "size":  "7.69 MB"
+                  },
+                  {
+                      "name":  "72003",
+                      "code":  "72003",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_nexo_knight_s5/72003.pdf",
+                      "size":  "11.49 MB"
+                  },
+                  {
+                      "name":  "72004-1",
+                      "code":  "72004-1",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_nexo_knight_s5/72004-1.pdf",
+                      "size":  "6.26 MB"
+                  },
+                  {
+                      "name":  "72004-2",
+                      "code":  "72004-2",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_nexo_knight_s5/72004-2.pdf",
+                      "size":  "9.14 MB"
+                  },
+                  {
+                      "name":  "72005-1",
+                      "code":  "72005-1",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_nexo_knight_s5/72005-1.pdf",
+                      "size":  "5.41 MB"
+                  },
+                  {
+                      "name":  "72005-2",
+                      "code":  "72005-2",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_nexo_knight_s5/72005-2.pdf",
+                      "size":  "13.1 MB"
+                  },
+                  {
+                      "name":  "72006-1",
+                      "code":  "72006-1",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_nexo_knight_s5/72006-1.pdf",
+                      "size":  "7.58 MB"
+                  },
+                  {
+                      "name":  "72006-2",
+                      "code":  "72006-2",
+                      "type":  "pdf",
+                      "date":  "06/02/2026",
+                      "url":  "documents/lego_nexo_knight_s5/72006-2.pdf",
+                      "size":  "9.58 MB"
+                  }
+              ],
+    "name":  "Lego Nexo Knights S5",
+    "id":  "lego_nexo_knight_s5"
+}
