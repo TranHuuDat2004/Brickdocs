@@ -1,0 +1,103 @@
+﻿{
+    "noteHtml":  "Thu phục tất cả Pokemon cùng Keeppley!",
+    "files":  [
+                  {
+                      "name":  "A0102 - Keeppley Pokemon",
+                      "code":  "A0102",
+                      "type":  "pdf",
+                      "date":  "07/02/2026",
+                      "url":  "documents/keeppley_pokemon/A0102.pdf",
+                      "size":  "0.22 MB"
+                  },
+                  {
+                      "name":  "A0103 - Keeppley Pokemon",
+                      "code":  "A0103",
+                      "type":  "pdf",
+                      "date":  "07/02/2026",
+                      "url":  "documents/keeppley_pokemon/A0103.pdf",
+                      "size":  "0.28 MB"
+                  },
+                  {
+                      "name":  "A0104 - Keeppley Pokemon",
+                      "code":  "A0104",
+                      "type":  "pdf",
+                      "date":  "07/02/2026",
+                      "url":  "documents/keeppley_pokemon/A0104.pdf",
+                      "size":  "0.25 MB"
+                  },
+                  {
+                      "name":  "A0105 - Keeppley Pokemon",
+                      "code":  "A0105",
+                      "type":  "pdf",
+                      "date":  "07/02/2026",
+                      "url":  "documents/keeppley_pokemon/A0105.pdf",
+                      "size":  "0.25 MB"
+                  },
+                  {
+                      "name":  "A0106 - Keeppley Pokemon",
+                      "code":  "A0106",
+                      "type":  "pdf",
+                      "date":  "07/02/2026",
+                      "url":  "documents/keeppley_pokemon/A0106.pdf",
+                      "size":  "0.24 MB"
+                  },
+                  {
+                      "name":  "B0103 - Keeppley Pokemon",
+                      "code":  "B0103",
+                      "type":  "pdf",
+                      "date":  "07/02/2026",
+                      "url":  "documents/keeppley_pokemon/B0103.pdf",
+                      "size":  "0.27 MB"
+                  },
+                  {
+                      "name":  "B0104 - Keeppley Pokemon",
+                      "code":  "B0104",
+                      "type":  "pdf",
+                      "date":  "07/02/2026",
+                      "url":  "documents/keeppley_pokemon/B0104.pdf",
+                      "size":  "0.29 MB"
+                  },
+                  {
+                      "name":  "B0105 - Keeppley Pokemon",
+                      "code":  "B0105",
+                      "type":  "pdf",
+                      "date":  "07/02/2026",
+                      "url":  "documents/keeppley_pokemon/B0105.pdf",
+                      "size":  "0.26 MB"
+                  },
+                  {
+                      "name":  "B0106 - Keeppley Pokemon",
+                      "code":  "B0106",
+                      "type":  "pdf",
+                      "date":  "07/02/2026",
+                      "url":  "documents/keeppley_pokemon/B0106.pdf",
+                      "size":  "0.26 MB"
+                  },
+                  {
+                      "name":  "B0107 - Keeppley Pokemon",
+                      "code":  "B0107",
+                      "type":  "pdf",
+                      "date":  "07/02/2026",
+                      "url":  "documents/keeppley_pokemon/B0107.pdf",
+                      "size":  "3.85 MB"
+                  },
+                  {
+                      "name":  "B0108 - Keeppley Pokemon",
+                      "code":  "B0108",
+                      "type":  "pdf",
+                      "date":  "07/02/2026",
+                      "url":  "documents/keeppley_pokemon/B0108.pdf",
+                      "size":  "2.72 MB"
+                  },
+                  {
+                      "name":  "B0109 - Keeppley Pokemon",
+                      "code":  "B0109",
+                      "type":  "pdf",
+                      "date":  "07/02/2026",
+                      "url":  "documents/keeppley_pokemon/B0109.pdf",
+                      "size":  "3.27 MB"
+                  }
+              ],
+    "name":  "Keeppley Pokemon",
+    "id":  "keeppley_pokemon"
+}

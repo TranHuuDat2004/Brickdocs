@@ -1,0 +1,47 @@
+﻿{
+    "noteHtml":  "Đội ngũ kỹ sư và công nhân xây dựng Sluban.",
+    "files":  [
+                  {
+                      "name":  "M38-B0103 - Sluban Worker",
+                      "code":  "M38-B0103",
+                      "type":  "pdf",
+                      "date":  "07/02/2026",
+                      "url":  "documents/sluban_worker/M38-B0103.pdf",
+                      "size":  "0.69 MB"
+                  },
+                  {
+                      "name":  "M38-B0105 - Sluban Worker",
+                      "code":  "M38-B0105",
+                      "type":  "pdf",
+                      "date":  "07/02/2026",
+                      "url":  "documents/sluban_worker/M38-B0105.pdf",
+                      "size":  "1.26 MB"
+                  },
+                  {
+                      "name":  "M38-B0106 - Sluban Worker",
+                      "code":  "M38-B0106",
+                      "type":  "pdf",
+                      "date":  "07/02/2026",
+                      "url":  "documents/sluban_worker/M38-B0106.pdf",
+                      "size":  "2.74 MB"
+                  },
+                  {
+                      "name":  "M38-B0108 - Sluban Worker",
+                      "code":  "M38-B0108",
+                      "type":  "pdf",
+                      "date":  "07/02/2026",
+                      "url":  "documents/sluban_worker/M38-B0108.pdf",
+                      "size":  "0.79 MB"
+                  },
+                  {
+                      "name":  "M38-B0111 - Sluban Worker",
+                      "code":  "M38-B0111",
+                      "type":  "pdf",
+                      "date":  "07/02/2026",
+                      "url":  "documents/sluban_worker/M38-B0111.pdf",
+                      "size":  "0.32 MB"
+                  }
+              ],
+    "name":  "Sluban Worker",
+    "id":  "sluban_worker"
+}

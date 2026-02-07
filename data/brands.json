@@ -63,6 +63,24 @@
         "description": "Thám tử lừng danh Conan."
     },
     {
+        "id": "keeppley_pokemon",
+        "code": "POKEMON",
+        "name": "Keeppley Pokemon",
+        "category": "keeppley",
+        "image": "img/themes/pokemon.jpg",
+        "icon": "ph-lightning",
+        "description": "Thế giới Pokemon đầy màu sắc."
+    },
+    {
+        "id": "keeppley_kungfu",
+        "code": "KUNGFU",
+        "name": "Keeppley Kungfu",
+        "category": "keeppley",
+        "image": "img/themes/Kungfu.jpg",
+        "icon": "ph-hand-fist",
+        "description": "Tuyệt đỉnh Kungfu Panda."
+    },
+    {
         "id": "sluban_robot",
         "code": "ROBOT",
         "name": "Sluban Robot",
@@ -70,5 +88,14 @@
         "image": "img/themes/sluban_robot.jpg",
         "icon": "ph-robot",
         "description": "Chiến binh Robot dũng mãnh bảo vệ Trái đất."
+    },
+    {
+        "id": "sluban_worker",
+        "code": "WORKER",
+        "name": "Sluban Worker",
+        "category": "sluban",
+        "image": "img/themes/sluban_worker.png",
+        "icon": "ph-hard-hat",
+        "description": "Đội ngũ xây dựng thành phố."
     }
 ]
