@@ -4,7 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sách hướng dẫn - BrickDocs</title>
+    <title>Hướng dẫn lắp ráp - BrickDocs</title>
+    <meta name="description" content="Xem và tải hướng dẫn lắp ráp đồ chơi trực tuyến miễn phí trên BrickDocs. Kho manual Lego, Qman, Keeppley, Sluban chất lượng cao.">
+    <meta name="keywords" content="BrickDocs, hướng dẫn lắp ráp, Lego, Qman, Keeppley, Sluban, instruction manual">
+    <meta name="author" content="Dat">
+    <meta property="og:title" content="Hướng dẫn lắp ráp - BrickDocs">
+    <meta property="og:description" content="Xem và tải hướng dẫn lắp ráp đồ chơi trực tuyến miễn phí trên BrickDocs.">
+    <meta property="og:type" content="article">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
@@ -377,8 +383,16 @@
 
                 // Cập nhật giao diện
                 document.title = `${data.name} - BrickDocs`;
-                document.title = `${data.name} - BrickDocs`;
                 document.getElementById('pageTitle').innerHTML = `<i class="ph-fill ph-folder-open text-red-600"></i> ${data.name}`;
+
+                // Update meta description dynamically
+                let metaDesc = document.querySelector('meta[name="description"]');
+                if (metaDesc) metaDesc.setAttribute('content', `Hướng dẫn lắp ráp ${data.name} - Tải và xem trực tuyến miễn phí trên BrickDocs. ${data.description || ''}`);
+                let metaOgTitle = document.querySelector('meta[property="og:title"]');
+                if (metaOgTitle) metaOgTitle.setAttribute('content', `${data.name} - BrickDocs`);
+                let metaOgDesc = document.querySelector('meta[property="og:description"]');
+                if (metaOgDesc) metaOgDesc.setAttribute('content', `Hướng dẫn lắp ráp ${data.name}. ${data.description || 'Xem và tải miễn phí trên BrickDocs.'}`);
+
 
                 // --- SETUP DOWNLOAD ALL BUTTON ---
                 const dlBtn = document.getElementById('downloadAllBtn');
